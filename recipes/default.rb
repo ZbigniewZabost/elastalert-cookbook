@@ -75,9 +75,17 @@ python_execute 'setup elastalert index' do
   not_if "curl -XGET 'http://#{elast_es_host}:#{elast_es_port}/#{elast_es_index}/' -s | grep '@timestamp'"
 end
 
+directory "#{elast_dir}/rules" do
+  user elast_user
+  group elast_group
+  mode '0755'
+end
+
+managed_directory "#{elast_dir}/rules" do
+  clean_directories true
+end
+
 # TODO:
-# create rules directory
-# copy rules to direcotry
 # add supervisord
 # add supervisord config template
 # add elastalert config tempalte

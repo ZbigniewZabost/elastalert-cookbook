@@ -28,3 +28,10 @@ end
 describe command('curl -XGET http://localhost:9200/elastalert_status -s') do
   its('stdout') { should include '@timestamp'}
 end
+
+describe directory('/opt/elastalert/rules') do
+  it { should exist}
+  its('owner') { should eq 'elastalert' }
+  its('group') { should eq 'elastalert' }
+  its('mode') { should cmp '0755' }
+end
