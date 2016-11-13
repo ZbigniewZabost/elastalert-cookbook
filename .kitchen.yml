@@ -2,6 +2,8 @@
 driver:
   name: docker
   use_sudo: false
+  port_forward:
+    - 9200:9200
 
 provisioner:
   name: chef_zero
@@ -11,13 +13,12 @@ verifier:
 
 platforms:
   - name: debian-jessie
-    #driver_config:
-      # provision_command: apt-get update
+    run_list:
+      - recipe[elastalert_test::elasticsearch]
 
 suites:
   - name: default
     run_list:
-      - recipe[elasticsearch]
       - recipe[elastalert]
     verifier:
       inspec_tests:
