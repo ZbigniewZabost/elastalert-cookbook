@@ -1,18 +1,30 @@
 # # encoding: utf-8
 
-# Inspec test for recipe elastalert::default
+describe user('elastalert') do
+  it { should exist }
+  its('group') { should eq 'elastalert' }
+  its('home') { should eq '/home/elastalert' }
+end
 
-# The Inspec reference, with examples and extensive documentation, can be
-# found at https://docs.chef.io/inspec_reference.html
+describe directory('/opt/elastalert/.env') do
+  it { should exist}
+  its('owner') { should eq 'elastalert' }
+  its('group') { should eq 'elastalert' }
+  its('mode') { should cmp '0755' }
+end
 
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
+describe bash('/opt/elastalert/.env/bin/python --version') do
+  its('stderr') { should match /Python 2\.[0-9]+\.[0-9]+/ } # https://bugs.python.org/issue18338
+end
+
+['elastalert', 'elastalert-create-index', 'elastalert-rule-from-kibana', 'elastalert-test-rule'].each do |command|
+  describe file("/opt/elastalert/.env/local/bin/#{command}") do
+      it { should exist }
+      its('owner') { should eq 'elastalert' }
+      its('group') { should eq 'elastalert' }
   end
 end
 
-describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
+describe command('curl -XGET http://localhost:9200/elastalert_status -s') do
+  its('stdout') { should include '@timestamp'}
 end
