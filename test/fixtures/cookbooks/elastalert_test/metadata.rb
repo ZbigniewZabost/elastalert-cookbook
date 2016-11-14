@@ -7,5 +7,5 @@ long_description 'Installs/Configures elastalert'
 version '0.1.0'
 
 depends 'elasticsearch', '~> 2.4'
-depends 'java'
-depends 'apt'
+depends 'java', '~> 1.42.0'
+depends 'apt', '~> 5.0.0'

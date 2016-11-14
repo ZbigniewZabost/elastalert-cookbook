@@ -37,9 +37,12 @@ git 'elastalert' do
   action :checkout
 end
 
-python_runtime '2' do
-  options dev_package: 'build-essential python-dev'
+# needed for python
+%w(build-essential python-dev).each do |package|
+  apt_package package
 end
+
+python_runtime '2'
 
 python_virtualenv elast_venv do
   group elast_group
@@ -85,8 +88,9 @@ managed_directory "#{elast_dir}/rules" do
   clean_directories true
 end
 
+include_recipe 'supervisor'
+
 # TODO:
-# add supervisord
-# add supervisord config template
-# add elastalert config tempalte
-# run elastalert
+# add elastalert config template
+# add elastalert supervisor service
+# add e2e test

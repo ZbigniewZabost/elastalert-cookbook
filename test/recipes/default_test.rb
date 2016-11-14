@@ -42,3 +42,7 @@ describe file('/opt/elastalert/rules/test_rule.yml') do
   its('group') { should eq 'elastalert' }
   its('mode') { should cmp '0755' }
 end
+
+describe bash('supervisorctl pid') do
+  its('stdout') { should match /^[0-9]+$/}
+end
