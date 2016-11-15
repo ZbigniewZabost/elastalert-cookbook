@@ -61,7 +61,7 @@ python_execute "#{elast_dir}/setup.py install" do
   group elast_group
   virtualenv elast_venv
   cwd elast_dir
-  not_if do ::File.exist?("#{elast_venv}/local/bin/elastalert-create-index") end
+  not_if do ::File.exist?("#{elast_venv}/bin/elastalert-create-index") end
   notifies :install, "pip_requirements[#{elast_dir}/requirements.txt]", :immediately
 end
 
@@ -76,7 +76,7 @@ pip_requirements "#{elast_dir}/requirements.txt" do
 end
 
 python_execute 'setup elastalert index' do
-  command "#{elast_venv}/local/bin/elastalert-create-index --host #{elast_es_host} --port #{elast_es_port} --index '#{elast_es_index}' --url-prefix '#{elast_es_url_prefix}' --old-index '#{elast_es_old_index}' #{elast_es_index_create_opts}"
+  command "#{elast_venv}/bin/elastalert-create-index --host #{elast_es_host} --port #{elast_es_port} --index '#{elast_es_index}' --url-prefix '#{elast_es_url_prefix}' --old-index '#{elast_es_old_index}' #{elast_es_index_create_opts}"
   user elast_user
   group elast_group
   virtualenv elast_venv
@@ -109,6 +109,18 @@ directory elast_log_dir do
   mode '0755'
 end
 
-# TODO:
-# add elastalert supervisor service
-# add e2e test
+supervisor_service 'elastalert' do
+  action [:enable, :start]
+  autostart true
+  user elast_user
+  stdout_logfile '/var/log/elastalert/elastalert_supervisord.log'
+  stdout_logfile_maxbytes '1MB'
+  stdout_logfile_backups 2
+  directory '%(here)s'
+  serverurl 'unix:///var/run/elastalert_supervisor.sock'
+  startsecs 15
+  stopsignal 'INT'
+  stderr_logfile '/var/log/elastalert/elastalert_stderr.log'
+  stderr_logfile_maxbytes '5MB'
+  command '/opt/elastalert/.env/bin/elastalert --config /opt/elastalert/config.yml --verbose'
+end

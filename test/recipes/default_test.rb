@@ -60,3 +60,7 @@ describe directory('/var/log/elastalert') do
   its('group') { should eq 'elastalert' }
   its('mode') { should cmp '0755' }
 end
+
+describe bash('supervisorctl status elastalert') do
+  its('stdout') { should match /^elastalert\s+RUNNING\s+pid [0-9]+, uptime .*$/}
+end
