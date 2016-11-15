@@ -36,6 +36,10 @@ describe directory('/opt/elastalert/rules') do
   its('mode') { should cmp '0755' }
 end
 
+describe bash('supervisorctl pid') do
+  its('stdout') { should match /^[0-9]+$/}
+end
+
 describe file('/opt/elastalert/rules/test_rule.yml') do
   it { should exist}
   its('owner') { should eq 'elastalert' }
@@ -43,6 +47,16 @@ describe file('/opt/elastalert/rules/test_rule.yml') do
   its('mode') { should cmp '0755' }
 end
 
-describe bash('supervisorctl pid') do
-  its('stdout') { should match /^[0-9]+$/}
+describe file('/opt/elastalert/config.yml') do
+  it { should exist}
+  its('owner') { should eq 'elastalert' }
+  its('group') { should eq 'elastalert' }
+  its('mode') { should cmp '0755' }
+end
+
+describe directory('/var/log/elastalert') do
+  it { should exist}
+  its('owner') { should eq 'elastalert' }
+  its('group') { should eq 'elastalert' }
+  its('mode') { should cmp '0755' }
 end

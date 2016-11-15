@@ -10,9 +10,10 @@ elast_group = node['elastalert']['group']
 elast_user = node['elastalert']['user']
 elast_user_home = node['elastalert']['user_home']
 elast_dir = node['elastalert']['directory']
+elast_rules_dir = node['elastalert']['rules_directory']
 elast_venv = node['elastalert']['virtualenv']['directory']
+elast_log_dir = node['elastalert']['log_dir']
 
-include_recipe 'git'
 
 group elast_group
 
@@ -28,6 +29,9 @@ directory elast_dir do
   mode '0755'
 end
 
+
+include_recipe 'git'
+
 git 'elastalert' do
   repository elast_repo
   revision elast_ver
@@ -36,6 +40,7 @@ git 'elastalert' do
   group elast_group
   action :checkout
 end
+
 
 # needed for python
 %w(build-essential python-dev).each do |package|
@@ -49,6 +54,7 @@ python_virtualenv elast_venv do
   user elast_user
   not_if do ::File.exist?(elast_venv) end
 end
+
 
 python_execute "#{elast_dir}/setup.py install" do
   user elast_user
@@ -78,19 +84,31 @@ python_execute 'setup elastalert index' do
   not_if "curl -XGET 'http://#{elast_es_host}:#{elast_es_port}/#{elast_es_index}/' -s | grep '@timestamp'"
 end
 
-directory "#{elast_dir}/rules" do
+directory elast_rules_dir do
   user elast_user
   group elast_group
   mode '0755'
 end
 
-managed_directory "#{elast_dir}/rules" do
+managed_directory elast_rules_dir do
   clean_directories true
 end
 
 include_recipe 'supervisor'
 
+template "#{elast_dir}/config.yml" do
+  source 'config.yml.erb'
+  owner elast_user
+  group elast_group
+  mode '0755'
+end
+
+directory elast_log_dir do
+  user elast_user
+  group elast_group
+  mode '0755'
+end
+
 # TODO:
-# add elastalert config template
 # add elastalert supervisor service
 # add e2e test
