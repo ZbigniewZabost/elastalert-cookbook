@@ -21,3 +21,10 @@ default['elastalert']['group'] = 'elastalert'
 default['elastalert']['directory'] = '/opt/elastalert'
 default['elastalert']['rules_directory'] = "#{node['elastalert']['directory']}/rules"
 default['elastalert']['virtualenv']['directory'] = "#{node['elastalert']['directory']}/.env"
+
+default['elastalert']['supervisor']['logfile'] = "#{node['elastalert']['log_dir']}/elastalert_supervisord.log"
+default['elastalert']['supervisor']['logfile_maxbytes'] = '1MB'
+default['elastalert']['supervisor']['logfile_backups'] = 2
+default['elastalert']['supervisor']['err_logfile'] = "#{node['elastalert']['log_dir']}/elastalert_stderr.log"
+default['elastalert']['supervisor']['err_logfile_maxbytes'] = '5MB'
+default['elastalert']['supervisor']['run_command'] = "#{node['elastalert']['virtualenv']['directory']}/bin/elastalert --config #{node['elastalert']['directory']}/config.yml --verbose"

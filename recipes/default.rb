@@ -13,7 +13,12 @@ elast_dir = node['elastalert']['directory']
 elast_rules_dir = node['elastalert']['rules_directory']
 elast_venv = node['elastalert']['virtualenv']['directory']
 elast_log_dir = node['elastalert']['log_dir']
-
+supervisor_logfile_path = node['elastalert']['supervisor']['logfile']
+supervisor_logfile_size = node['elastalert']['supervisor']['logfile_maxbytes']
+supervisor_logfile_backups = node['elastalert']['supervisor']['logfile_backups']
+supervisor_err_logfile_path = node['elastalert']['supervisor']['err_logfile']
+supervisor_err_logfile_size = node['elastalert']['supervisor']['err_logfile_maxbytes']
+supervisor_run_command = node['elastalert']['supervisor']['run_command']
 
 group elast_group
 
@@ -47,7 +52,7 @@ end
   apt_package package
 end
 
-python_runtime '2'
+python_runtime '2' # requriment of elastalert
 
 python_virtualenv elast_venv do
   group elast_group
@@ -113,14 +118,14 @@ supervisor_service 'elastalert' do
   action [:enable, :start]
   autostart true
   user elast_user
-  stdout_logfile '/var/log/elastalert/elastalert_supervisord.log'
-  stdout_logfile_maxbytes '1MB'
-  stdout_logfile_backups 2
+  stdout_logfile supervisor_logfile_path
+  stdout_logfile_maxbytes supervisor_logfile_size
+  stdout_logfile_backups supervisor_logfile_backups
   directory '%(here)s'
   serverurl 'unix:///var/run/elastalert_supervisor.sock'
   startsecs 15
   stopsignal 'INT'
-  stderr_logfile '/var/log/elastalert/elastalert_stderr.log'
-  stderr_logfile_maxbytes '5MB'
-  command '/opt/elastalert/.env/bin/elastalert --config /opt/elastalert/config.yml --verbose'
+  stderr_logfile supervisor_err_logfile_path
+  stderr_logfile_maxbytes supervisor_err_logfile_size
+  command supervisor_run_command
 end
