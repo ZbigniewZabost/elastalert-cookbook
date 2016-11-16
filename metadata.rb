@@ -1,12 +1,16 @@
 name 'elastalert'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
-license 'all_rights'
+maintainer 'Zbigniew Zabost'
+maintainer_email 'zabostz@gmail.com'
+license 'Apache 2.0'
 description 'Installs/Configures elastalert'
-long_description 'Installs/Configures elastalert'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.1.0'
 
-depends 'poise-python', '~> 1.5.1'
-depends 'git', '~> 5.0.1'
-depends 'managed_directory', '~> 0.2.1'
-depends 'supervisor', '~> 0.4.12'
+depends 'poise-python'
+depends 'git'
+depends 'managed_directory'
+depends 'supervisor'
+
+source_url 'https://github.com/zbigniewz/elastalert-cookbook' if respond_to?(:source_url)
+issues_url 'https://github.com/zbigniewz/elastalert-cookbook/issues' if respond_to?(:issues_url)
+
