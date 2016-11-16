@@ -1,4 +1,5 @@
-# Chef cookbook installing and configuring [Yelp's elastalert](https://github.com/Yelp/elastalert)
+# elastalert chef cookbook
+Installs and configures [Yelp's elastalert](https://github.com/Yelp/elastalert)
 
 ### TODO
 * add more platforms (CentOS?)
