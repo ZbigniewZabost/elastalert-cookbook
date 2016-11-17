@@ -5,11 +5,13 @@ require 'kitchen/rake_tasks'
 
 RuboCop::RakeTask.new do |task|
   task.options << '--display-cop-names'
+  task.options << '--format=s'
+  task.options << '-DE'
 end
 
 task :foodcritic do
   if Gem::Version.new('1.9.2') <= Gem::Version.new(RUBY_VERSION.dup)
-    sh 'bundle exec foodcritic . --epic-fail correctness -X test/'
+    sh 'bundle exec foodcritic . --epic-fail any -C -P -X test/'
   else
     puts "WARN: foodcritic run is skipped as Ruby #{RUBY_VERSION} is < 1.9.2."
   end
