@@ -15,4 +15,3 @@ depends 'supervisor'
 
 source_url 'https://github.com/zbigniewz/elastalert-cookbook' if respond_to?(:source_url)
 issues_url 'https://github.com/zbigniewz/elastalert-cookbook/issues' if respond_to?(:issues_url)
-

@@ -34,7 +34,6 @@ directory elast_dir do
   mode '0755'
 end
 
-
 include_recipe 'git'
 
 git 'elastalert' do
@@ -46,7 +45,6 @@ git 'elastalert' do
   action :checkout
 end
 
-
 # needed for python
 %w(build-essential python-dev).each do |package|
   apt_package package
@@ -57,16 +55,15 @@ python_runtime '2' # requriment of elastalert
 python_virtualenv elast_venv do
   group elast_group
   user elast_user
-  not_if do ::File.exist?(elast_venv) end
+  not_if { ::File.exist?(elast_venv) }
 end
-
 
 python_execute "#{elast_dir}/setup.py install" do
   user elast_user
   group elast_group
   virtualenv elast_venv
   cwd elast_dir
-  not_if do ::File.exist?("#{elast_venv}/bin/elastalert-create-index") end
+  not_if { ::File.exist?("#{elast_venv}/bin/elastalert-create-index") }
   notifies :install, "pip_requirements[#{elast_dir}/requirements.txt]", :immediately
 end
 
@@ -76,7 +73,7 @@ pip_requirements "#{elast_dir}/requirements.txt" do
   virtualenv elast_venv
   options '-v'
   cwd elast_dir
-  retries 1   # 1st try fails on clean up step when trying to remove not existing file, 2nd try is successful
+  retries 1 # 1st try fails on clean up step when trying to remove not existing file, 2nd try is successful
   action :nothing
 end
 
