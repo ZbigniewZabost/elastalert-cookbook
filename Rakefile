@@ -15,8 +15,8 @@ task :foodcritic do
   end
 end
 
+task style: [:rubocop, :foodcritic]
+
 RSpec::Core::RakeTask.new(:unit)
 
 Kitchen::RakeTasks.new
-
-task style: [:rubocop, :foodcritic]
