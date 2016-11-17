@@ -2,8 +2,6 @@
 driver:
   name: docker
   use_sudo: false
-  port_forward:
-    - 9200:9200
 
 provisioner:
   name: chef_zero
