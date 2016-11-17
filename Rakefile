@@ -1,5 +1,7 @@
 require 'cookstyle'
 require 'rubocop/rake_task'
+require 'rspec/core/rake_task'
+require 'kitchen/rake_tasks'
 
 RuboCop::RakeTask.new do |task|
   task.options << '--display-cop-names'
@@ -12,5 +14,9 @@ task :foodcritic do
     puts "WARN: foodcritic run is skipped as Ruby #{RUBY_VERSION} is < 1.9.2."
   end
 end
+
+RSpec::Core::RakeTask.new(:unit)
+
+Kitchen::RakeTasks.new
 
 task style: [:rubocop, :foodcritic]
