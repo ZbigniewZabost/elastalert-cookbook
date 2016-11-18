@@ -1,12 +1,12 @@
-# elastalert chef cookbook 
-[![Build Status](https://snap-ci.com/zbigniewz/elastalert-cookbook/branch/master/build_image)](https://snap-ci.com/zbigniewz/elastalert-cookbook/branch/master) 
+# elastalert chef cookbook
+[![Build Status](https://snap-ci.com/zbigniewz/elastalert-cookbook/branch/master/build_image)](https://snap-ci.com/zbigniewz/elastalert-cookbook/branch/master)
 
 Installs and configures [Yelp's elastalert](https://github.com/Yelp/elastalert)
 
-### TODO
+### to do
+* add CI
+* write more docs
 * add more platforms (CentOS?)
-* test, styling rakefile, CI
-* pull up what is possible to attributes
 
 ## How to use
 Create wrapper around this cookbook and adjust attributes to your needs.
