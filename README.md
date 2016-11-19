@@ -1,5 +1,6 @@
 # Elastalert cookbook
 [![Build Status](https://snap-ci.com/zbigniewz/elastalert-cookbook/branch/master/build_image)](https://snap-ci.com/zbigniewz/elastalert-cookbook/branch/master)
+
 This chef cookbook installs and configures [Yelp's elastalert](https://github.com/Yelp/elastalert).
 
 In more details, this cookbook:
