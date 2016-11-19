@@ -4,7 +4,6 @@
 Installs and configures [Yelp's elastalert](https://github.com/Yelp/elastalert)
 
 ### to do
-* add CI
 * write more docs
 * add more platforms (CentOS?)
 
