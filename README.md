@@ -6,6 +6,7 @@
 
 ## Overview
 This chef cookbook installs and configures [Yelp's elastalert](https://github.com/Yelp/elastalert).
+
 In more details:
 - checks out elastalert github repo using given commit hash or tag
 - create elastalert user and group
