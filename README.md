@@ -1,6 +1,8 @@
 # Elastalert cookbook
 [![Build Status](https://snap-ci.com/zbigniewz/elastalert-cookbook/branch/master/build_image)](https://snap-ci.com/zbigniewz/elastalert-cookbook/branch/master)
 [![Code Climate](https://codeclimate.com/github/zbigniewz/elastalert-cookbook/badges/gpa.svg)](https://codeclimate.com/github/zbigniewz/elastalert-cookbook)
+[![Cookbook Version](https://img.shields.io/cookbook/v/elastalert.svg)](https://community.opscode.com/cookbooks/elastalert)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/zbigniewz/elastalert-cookbook/master/LICENSE)
 
 ## Overview
 This chef cookbook installs and configures [Yelp's elastalert](https://github.com/Yelp/elastalert).
