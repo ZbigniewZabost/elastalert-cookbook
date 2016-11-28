@@ -45,8 +45,9 @@ git 'elastalert' do
   action :checkout
 end
 
-# needed for python
-%w(build-essential python-dev).each do |package|
+build_essentials = node['platform'] == 'centos' ? %w(make automake gcc gcc-c++ kernel-devel python-devel) : %w(build-essential python-dev)
+
+build_essentials.each do |package|
   package package
 end
 
