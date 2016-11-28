@@ -47,7 +47,7 @@ end
 
 # needed for python
 %w(build-essential python-dev).each do |package|
-  apt_package package
+  package package
 end
 
 python_runtime '2' # requriment of elastalert
