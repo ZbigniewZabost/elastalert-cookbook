@@ -91,6 +91,7 @@ directory elast_rules_dir do
   user elast_user
   group elast_group
   mode '0755'
+  recursive true
 end
 
 managed_directory elast_rules_dir do
