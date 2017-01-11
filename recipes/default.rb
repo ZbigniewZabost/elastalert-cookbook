@@ -45,9 +45,10 @@ git 'elastalert' do
   action :checkout
 end
 
-# needed for python
-%w(build-essential python-dev).each do |package|
-  apt_package package
+build_essentials = node['platform'] == 'centos' ? %w(make automake gcc gcc-c++ kernel-devel python-devel) : %w(build-essential python-dev)
+
+build_essentials.each do |package|
+  package package
 end
 
 python_runtime '2' # requriment of elastalert
@@ -90,6 +91,7 @@ directory elast_rules_dir do
   user elast_user
   group elast_group
   mode '0755'
+  recursive true
 end
 
 managed_directory elast_rules_dir do
