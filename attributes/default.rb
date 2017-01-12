@@ -1,5 +1,4 @@
-default['elastalert']['repository'] = 'https://github.com/Yelp/elastalert.git'
-default['elastalert']['version'] = 'v0.1.3'
+default['elastalert']['version'] = nil
 
 default['elastalert']['elasticsearch']['hostname'] = 'localhost'
 default['elastalert']['elasticsearch']['port'] = 9200
