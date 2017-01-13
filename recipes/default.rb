@@ -34,8 +34,6 @@ directory elast_dir do
   mode '0755'
 end
 
-include_recipe 'git'
-
 # needed for python
 %w(build-essential python-dev).each do |package|
   apt_package package

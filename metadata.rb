@@ -9,7 +9,6 @@ version '0.1.1'
 supports 'debian'
 
 depends 'poise-python'
-depends 'git'
 depends 'managed_directory'
 depends 'supervisor'
 
