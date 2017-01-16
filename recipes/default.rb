@@ -35,8 +35,10 @@ directory elast_dir do
 end
 
 # needed for python
-%w(build-essential python-dev).each do |package|
-  apt_package package
+build_essentials = node['platform'] == 'centos' ? %w(make automake gcc gcc-c++ kernel-devel python-devel) : %w(build-essential python-dev)
+
+build_essentials.each do |package|
+  package package
 end
 
 python_runtime '2' # requriment of elastalert
