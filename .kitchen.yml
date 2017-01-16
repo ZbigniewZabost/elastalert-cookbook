@@ -1,4 +1,3 @@
----
 driver:
   name: docker
   use_sudo: false
@@ -10,9 +9,9 @@ verifier:
   name: inspec
 
 platforms:
-  - name: debian-jessie
-    run_list:
-      - recipe[elastalert_test::elasticsearch]
+  - name: debian
+  - name: centos-6
+  - name: centos-7
 
 suites:
   - name: default

@@ -33,8 +33,7 @@ In more details:
 Create wrapper around this cookbook and adjust attributes to your needs.
 
 ### Attributes
-* `node['elastalert']['repository']` - git repository of elastalert, default `https://github.com/Yelp/elastalert.git`
-* `node['elastalert']['version']` - commit hash or tag to checkout from elastalert git repo, default `v0.1.3`
+* `node['elastalert']['version']` - elastalert version to install from pip, default `nil` meaning it will take the latest
 * `node['elastalert']['elasticsearch']['hostname']` - hostname of elasticsearch to use, default `localhost`
 * `node['elastalert']['elasticsearch']['port']` - port of elasticsearch to use, default `9200`
 * `node['elastalert']['elasticsearch']['index']` - name of index to be created by elastalert, default `elastalert_status`
