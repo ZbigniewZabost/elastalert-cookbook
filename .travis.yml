@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+    - 2.3.0
+sudo: required
+services:
+    - docker
+install:
+    - bundle install
+script:
+    - kitchen test
