@@ -4,6 +4,9 @@ rvm:
 sudo: required
 services:
     - docker
+    - elasticsearch
+before_script:
+    - sleep 10
 install:
     - bundle install
 script:

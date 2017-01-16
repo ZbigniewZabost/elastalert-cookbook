@@ -1,4 +1,3 @@
----
 driver:
   name: docker
   use_sudo: false
@@ -11,14 +10,8 @@ verifier:
 
 platforms:
   - name: debian
-    run_list:
-      - recipe[elastalert_test::elasticsearch]
   - name: centos-6
-    run_list:
-      - recipe[elastalert_test::elasticsearch]
   - name: centos-7
-    run_list:
-      - recipe[elastalert_test::elasticsearch]
 
 suites:
   - name: default
