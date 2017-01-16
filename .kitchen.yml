@@ -10,7 +10,13 @@ verifier:
   name: inspec
 
 platforms:
-  - name: debian-jessie
+  - name: debian
+    run_list:
+      - recipe[elastalert_test::elasticsearch]
+  - name: centos-6
+    run_list:
+      - recipe[elastalert_test::elasticsearch]
+  - name: centos-7
     run_list:
       - recipe[elastalert_test::elasticsearch]
 
