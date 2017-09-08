@@ -46,7 +46,7 @@ git 'elastalert' do
 end
 
 # needed for python
-%w(build-essential python-dev).each do |package|
+%w(build-essential python-dev libffi-dev).each do |package|
   apt_package package
 end
 
